@@ -10,4 +10,12 @@ describe Swapper do
       Swapper.new("abcd", position).swap.should == "abcd"
     end
   end
+  
+  it "should swap on space if there is one" do
+    Swapper.new("ab cd", 1).swap.should == "cd ab"
+  end
+  
+  it "should swap only element cursor is on" do
+    Swapper.new("ab cd ef", 1).swap.should == "cd ab ef"
+  end
 end

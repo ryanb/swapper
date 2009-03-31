@@ -5,10 +5,19 @@ class Swapper
   end
   
   def swap
-    if @position > 0 && @position < @line.length
-      temp = @line[@position]
-      @line[@position] = @line[@position-1]
-      @line[@position-1] = temp
+    if @line.include? ' '
+      position = (@line[0..@position].split(' ').size)
+      parts = @line.split(' ')
+      temp = parts[position]
+      parts[position] = parts[position-1]
+      parts[position-1] = temp
+      @line = parts.join(' ')
+    else
+      if @position > 0 && @position < @line.length
+        temp = @line[@position]
+        @line[@position] = @line[@position-1]
+        @line[@position-1] = temp
+      end
     end
     @line
   end
