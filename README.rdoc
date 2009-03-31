@@ -1,0 +1,3 @@
+= Swapper
+
+Simple ruby library for swapping two elements in a single string. This is designed to be used in a text editor for swapping arguments in a function for example.
