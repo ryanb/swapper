@@ -34,4 +34,12 @@ describe Swapper do
   it "should swap within parenthesis" do
     Swapper.new("foo('testing', 123)", 5).swap.should == "foo(123, 'testing')"
   end
+  
+  it "should ignore other parenthesis outside target area" do
+    swapper = Swapper.new("foo(1, 2); bar(3, 4); test(5, 6)", 16)
+    swapper.target.should == "3, 4"
+    swapper.prefix.should == "foo(1, 2); bar("
+    swapper.suffix.should == "); test(5, 6)"
+    swapper.swap.should == "foo(1, 2); bar(4, 3); test(5, 6)"
+  end
 end

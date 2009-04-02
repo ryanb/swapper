@@ -4,6 +4,14 @@ class Swapper
     @char_position = position
   end
   
+  def target_range
+    if @line.include?('(') && @line.include?(')')
+      (@line[0..@char_position].rindex('(')+1)..(@line[@char_position..-1].index(')')+@char_position-1)
+    else
+      nil
+    end
+  end
+  
   def divider
     [', ', ' ', ''].detect do |div|
       @line.include? div
@@ -11,27 +19,19 @@ class Swapper
   end
   
   def target
-    if @line.include?('(') && @line.include?(')')
-      @line.split(/[()]/)[1]
+    if target_range
+      @line[target_range]
     else
       @line
     end
   end
   
   def prefix
-    if @line.include?('(') && @line.include?(')')
-      @line.split(/[()]/)[0] + '('
-    else
-      ''
-    end
+    @line[0..(target_range.begin-1)] if target_range
   end
   
   def suffix
-    if @line.include?('(') && @line.include?(')')
-      ')' + @line.split(/[()]/)[2].to_s
-    else
-      ''
-    end
+    @line[(target_range.end+1)..-1] if target_range
   end
   
   def part_position
@@ -48,6 +48,6 @@ class Swapper
   end
   
   def swap
-    prefix + swapped_parts.join(divider) + suffix
+    prefix.to_s + swapped_parts.join(divider) + suffix.to_s
   end
 end
