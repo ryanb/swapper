@@ -30,4 +30,8 @@ describe Swapper do
   it "should swap on comma-space taking presedence over normal space" do
     Swapper.new("ab, cd ef", 1).swap.should == "cd ef, ab"
   end
+  
+  it "should swap within parenthesis" do
+    Swapper.new("foo('testing', 123)", 5).swap.should == "foo(123, 'testing')"
+  end
 end

@@ -10,13 +10,37 @@ class Swapper
     end
   end
   
+  def target
+    if @line.include?('(') && @line.include?(')')
+      @line.split(/[()]/)[1]
+    else
+      @line
+    end
+  end
+  
+  def prefix
+    if @line.include?('(') && @line.include?(')')
+      @line.split(/[()]/)[0] + '('
+    else
+      ''
+    end
+  end
+  
+  def suffix
+    if @line.include?('(') && @line.include?(')')
+      ')' + @line.split(/[()]/)[2].to_s
+    else
+      ''
+    end
+  end
+  
   def part_position
-    position = @line[0..@char_position].split(divider).size
+    position = target[0..@char_position].split(divider).size
     position > 1 ? position-1 : 1
   end
   
   def swapped_parts
-    parts = @line.split(divider)
+    parts = target.split(divider)
     temp = parts[part_position]
     parts[part_position] = parts[part_position-1]
     parts[part_position-1] = temp
@@ -24,6 +48,6 @@ class Swapper
   end
   
   def swap
-    swapped_parts.join(divider)
+    prefix + swapped_parts.join(divider) + suffix
   end
 end
