@@ -7,6 +7,7 @@ class Swapper
   def swap
     if @line.include? ' '
       position = (@line[0..@position].split(' ').size)
+      position -= 1 if position > 1
       parts = @line.split(' ')
       temp = parts[position]
       parts[position] = parts[position-1]

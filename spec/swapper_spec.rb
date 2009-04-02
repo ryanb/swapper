@@ -18,4 +18,12 @@ describe Swapper do
   it "should swap only element cursor is on" do
     Swapper.new("ab cd ef", 1).swap.should == "cd ab ef"
   end
+  
+  it "should swap with earlier element if cursor is in middle element" do
+    Swapper.new("ab cd ef", 4).swap.should == "cd ab ef"
+  end
+  
+  it "should consider cursor at end if beyond last element" do
+    Swapper.new("ab cd ef", 23).swap.should == "ab ef cd"
+  end
 end
