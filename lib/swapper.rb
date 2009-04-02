@@ -1,25 +1,29 @@
 class Swapper
   def initialize(line, position)
     @line = line
-    @position = position
+    @char_position = position
+  end
+  
+  def divider
+    [', ', ' ', ''].detect do |div|
+      @line.include? div
+    end
+  end
+  
+  def part_position
+    position = @line[0..@char_position].split(divider).size
+    position > 1 ? position-1 : 1
+  end
+  
+  def swapped_parts
+    parts = @line.split(divider)
+    temp = parts[part_position]
+    parts[part_position] = parts[part_position-1]
+    parts[part_position-1] = temp
+    parts
   end
   
   def swap
-    if @line.include? ' '
-      position = (@line[0..@position].split(' ').size)
-      position -= 1 if position > 1
-      parts = @line.split(' ')
-      temp = parts[position]
-      parts[position] = parts[position-1]
-      parts[position-1] = temp
-      @line = parts.join(' ')
-    else
-      if @position > 0 && @position < @line.length
-        temp = @line[@position]
-        @line[@position] = @line[@position-1]
-        @line[@position-1] = temp
-      end
-    end
-    @line
+    swapped_parts.join(divider)
   end
 end

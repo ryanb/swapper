@@ -5,10 +5,10 @@ describe Swapper do
     Swapper.new("abcd", 1).swap.should == "bacd"
   end
   
-  it "should not swap if cursor is at beginning or end of string" do
-    [-5, 0, 4, 20].each do |position|
-      Swapper.new("abcd", position).swap.should == "abcd"
-    end
+  it "should swap on extreme ends" do
+    Swapper.new("abcd", 0).swap.should == "bacd"
+    Swapper.new("abcd", 4).swap.should == "abdc"
+    Swapper.new("abcd", 20).swap.should == "abdc"
   end
   
   it "should swap on space if there is one" do
@@ -25,5 +25,9 @@ describe Swapper do
   
   it "should consider cursor at end if beyond last element" do
     Swapper.new("ab cd ef", 23).swap.should == "ab ef cd"
+  end
+  
+  it "should swap on comma-space taking presedence over normal space" do
+    Swapper.new("ab, cd ef", 1).swap.should == "cd ef, ab"
   end
 end
