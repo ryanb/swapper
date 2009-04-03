@@ -66,4 +66,8 @@ describe Swapper do
   it "should parenthesis when cursor is outside of it" do
     Swapper.new("foo(a, b) == c", 0).swap.should == "c == foo(a, b)"
   end
+  
+  it "should only swap on dividers in target area" do
+    Swapper.new("foo(a, b) == c", 4).swap.should == "foo(b, a) == c"
+  end
 end

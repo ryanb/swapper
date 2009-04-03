@@ -7,7 +7,7 @@ class Swapper
   def target_range
     if @line.include?('(') && @line.include?(')') && !@line[0..@char_position].rindex('(').nil? && !@line[@char_position..-1].index(')').nil?
       (@line[0..@char_position].rindex('(')+1)..(@line[@char_position..-1].index(')')+@char_position-1)
-    elsif divider != ' ' && @line =~ /^\s*[a-z_]+\s+[0-9a-z_]/i
+    elsif divider(@line) != ' ' && @line =~ /^\s*[a-z_]+\s+[0-9a-z_]/i
       (@line[/^\s*[a-z_]+\s+/i].length)..(@line.length)
     elsif @line =~ /^\s+/
       (@line[/^\s+/].length)..(@line.length)
@@ -16,9 +16,9 @@ class Swapper
     end
   end
   
-  def divider
+  def divider(str = nil)
     [' || ', ' && ', ' == ', ' != ', ' <= ', ' >= ', ' < ', ' > ', ' + ', ' - ', ' * ', ' / ', ', ', ' ', ''].detect do |div|
-      @line.include? div
+      (str || target).include? div
     end
   end
   
