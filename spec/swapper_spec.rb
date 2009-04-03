@@ -62,4 +62,8 @@ describe Swapper do
   it "should ignore word at beginning" do
     Swapper.new("  if a == b", 5).swap.should == "  if b == a"
   end
+  
+  it "should parenthesis when cursor is outside of it" do
+    Swapper.new("foo(a, b) == c", 0).swap.should == "c == foo(a, b)"
+  end
 end
