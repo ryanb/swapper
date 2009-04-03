@@ -52,4 +52,10 @@ describe Swapper do
       Swapper.new("a #{operator} b", 0).swap.should == "b #{operator} a"
     end
   end
+  
+  it "should swap on math operators" do
+    %w[+ - * /].each do |operator|
+      Swapper.new("a #{operator} b", 0).swap.should == "b #{operator} a"
+    end
+  end
 end

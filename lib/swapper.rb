@@ -15,7 +15,7 @@ class Swapper
   end
   
   def divider
-    [' || ', ' && ', ' == ', ' != ', ' <= ', ' >= ', ' < ', ' > ', ', ', ' ', ''].detect do |div|
+    [' || ', ' && ', ' == ', ' != ', ' <= ', ' >= ', ' < ', ' > ', ' + ', ' - ', ' * ', ' / ', ', ', ' ', ''].detect do |div|
       @line.include? div
     end
   end
