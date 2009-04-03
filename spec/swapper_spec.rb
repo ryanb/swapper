@@ -58,4 +58,8 @@ describe Swapper do
       Swapper.new("a #{operator} b", 0).swap.should == "b #{operator} a"
     end
   end
+  
+  it "should ignore word at beginning" do
+    Swapper.new("  if a == b", 5).swap.should == "  if b == a"
+  end
 end
