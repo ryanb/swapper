@@ -42,4 +42,14 @@ describe Swapper do
     swapper.suffix.should == "); test(5, 6)"
     swapper.swap.should == "foo(1, 2); bar(4, 3); test(5, 6)"
   end
+  
+  it "should ignore beginning spaces" do
+    Swapper.new("    ab cd", 5).swap.should == "    cd ab"
+  end
+  
+  it "should swap on comparison operators" do
+    %w[== != > >= < <= || &&].each do |operator|
+      Swapper.new("a #{operator} b", 0).swap.should == "b #{operator} a"
+    end
+  end
 end
